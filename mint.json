@@ -13,6 +13,13 @@
   },
   "navigation": [
     {
+      "group": "公司介绍",
+      "pages": [
+        "docs/company/overview",
+        "docs/company/roadmap"
+      ]
+    },
+    {
       "group": "系统与架构",
       "pages": [
         "docs/guides/system-architecture",
@@ -38,8 +45,10 @@
       ]
     },
     {
-      "group": "工具与流程",
+      "group": "团队指南",
       "pages": [
+        "docs/guides/onboarding",
+        "docs/guides/knowledge-management",
         "docs/guides/session-to-mintlify-pipeline"
       ]
     }
