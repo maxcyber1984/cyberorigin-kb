@@ -12,6 +12,8 @@ The pipeline collapses that gap into three stages: **extract → transform → s
 
 ## Architecture
 
+<img src="/assets/session_to_mintlify_agent_flow.svg" alt="Session to Mintlify agent flow diagram" />
+
 ### Stage 1: Session Capture
 
 Claude has no official conversation export API yet. Three viable inputs:
