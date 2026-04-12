@@ -16,7 +16,8 @@
       "group": "Guides",
       "pages": [
         "docs/guides/system-architecture",
-        "docs/guides/data-pipeline"
+        "docs/guides/data-pipeline",
+        "docs/guides/data-collection-ops"
       ]
     },
     {
@@ -24,7 +25,9 @@
       "pages": [
         "docs/references/edge-preprocessor",
         "docs/references/local-buffering",
-        "docs/references/output-bus-handoff"
+        "docs/references/output-bus-handoff",
+        "docs/references/annotation-pipeline",
+        "docs/references/annotation-team-kpi"
       ]
     }
   ],
