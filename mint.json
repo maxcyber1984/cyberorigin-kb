@@ -16,7 +16,8 @@
       "group": "公司介绍",
       "pages": [
         "docs/company/overview",
-        "docs/company/roadmap"
+        "docs/company/roadmap",
+        "docs/company/gantt"
       ]
     },
     {
