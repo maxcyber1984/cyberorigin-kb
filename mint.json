@@ -1,0 +1,41 @@
+{
+  "$schema": "https://mintlify.com/schema.json",
+  "name": "Max's Knowledge Base",
+  "logo": {
+    "dark": "/assets/logo-dark.svg",
+    "light": "/assets/logo-light.svg"
+  },
+  "favicon": "/assets/favicon.svg",
+  "colors": {
+    "primary": "#0D9373",
+    "light": "#07C983",
+    "dark": "#0D9373"
+  },
+  "navigation": [
+    {
+      "group": "Guides",
+      "pages": [
+        "docs/guides/system-architecture",
+        "docs/guides/data-pipeline"
+      ]
+    },
+    {
+      "group": "References",
+      "pages": [
+        "docs/references/edge-preprocessor",
+        "docs/references/local-buffering",
+        "docs/references/output-bus-handoff"
+      ]
+    },
+    {
+      "group": "Blog",
+      "pages": []
+    }
+  ],
+  "footerSocials": {
+    "github": "https://github.com/your-username"
+  },
+  "search": {
+    "prompt": "Search..."
+  }
+}
