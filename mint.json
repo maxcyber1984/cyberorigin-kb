@@ -17,7 +17,8 @@
       "pages": [
         "docs/guides/system-architecture",
         "docs/guides/data-pipeline",
-        "docs/guides/data-collection-ops"
+        "docs/guides/data-collection-ops",
+        "docs/guides/session-to-mintlify-pipeline"
       ]
     },
     {
