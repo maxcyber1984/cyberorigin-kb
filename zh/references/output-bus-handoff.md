@@ -4,57 +4,57 @@ description: "The five-step crash-safe handoff sequence from the edge preprocess
 icon: "right-left"
 ---
 
-The handoff is a five-step sequence where the write-ahead log is always written first — before anything touches the ring buffer. That ordering is what makes the buffer crash-safe.
+交接过程是一个五步序列，其中预写日志（WAL）始终最先写入——在任何数据触碰环形缓冲之前。这种顺序是保证缓冲区崩溃安全的关键。
 
-## Step 1 — WAL First, Always
+## 第 1 步 — WAL 永远先写
 
-Before touching the ring buffer, a record is appended to the write-ahead log on flash:
+在接触环形缓冲之前，先向 Flash 上的 WAL 追加一条记录：
 
-| Field | Value |
+| 字段 | 值 |
 |---|---|
-| Sequence number | Monotonically increasing |
-| Hardware timestamp | Nanoseconds |
-| Modality tag | Stream identifier |
-| Payload size | Bytes |
-| CRC32 | Payload integrity check |
+| Sequence number | 单调递增 |
+| Hardware timestamp | 纳秒 |
+| Modality tag | 流标识 |
+| Payload size | 字节 |
+| CRC32 | Payload 完整性校验 |
 | Status | `PENDING` |
 
-This is a sequential append — the fastest possible flash write. The critical property: if the device loses power after this step but before step 3, the WAL entry survives. On reboot, the system scans for PENDING entries with no corresponding ring slot data and replays them from the sensor hardware.
+这是顺序追加——Flash 能实现的最快写入。关键属性：如果设备在第 1 步之后、第 3 步之前断电，这条 WAL 记录依然存在。重启时，系统会扫描找到没有对应环形槽位数据的 PENDING 条目，并从传感器硬件侧重放。
 
-## Step 2 — Claim the Slot Atomically
+## 第 2 步 — 原子地占用槽位
 
-The write pointer is an atomic integer incremented with a compare-and-swap. If the slot at `write_ptr % N` is already occupied by unuploaded data, it gets evicted — the WAL entry for that older packet is marked `DROPPED`, the drop counter increments, and the slot is freed for the new write.
+写指针是一个原子整数，通过 compare-and-swap 自增。如果 `write_ptr % N` 位置的槽位已被未上传的数据占据，就会被驱逐——对应的旧包 WAL 条目标记为 `DROPPED`，drop 计数器递增，槽位释放给新写入使用。
 
-This is the data-loss event: it only happens when the upload thread has fallen more than N frames behind. The slot claim is a single atomic operation so it's safe across the preprocessor thread and the upload thread running concurrently.
+这是数据丢失事件：仅发生在上传线程落后超过 N 帧时。槽位占用是单次原子操作，在预处理线程和上传线程并发执行时也安全。
 
-## Step 3 — Write the Payload
+## 第 3 步 — 写入 Payload
 
-On SoCs with a DMA controller (Snapdragon, Jetson), the encoded payload bytes move from the codec output buffer directly into the ring slot without touching the CPU — the DMA engine handles the memory-to-memory copy and raises an interrupt on completion. On simpler MCUs it's a plain `memcpy`.
+在带 DMA 控制器的 SoC 上（Snapdragon、Jetson），编码后的 payload 字节从编码器输出缓冲直接搬进环形槽位而不经过 CPU——DMA 引擎负责内存到内存的拷贝，完成后触发中断。在较简单的 MCU 上就是一次普通 `memcpy`。
 
-The ring slot stores three things:
+环形槽位中存储三样东西：
 - Modality tag
-- Sequence number (for linking back to the WAL)
-- Raw payload bytes
+- Sequence number（用于反查 WAL）
+- 原始 payload 字节
 
-## Step 4 — Link WAL to Slot
+## 第 4 步 — 将 WAL 与槽位关联
 
-Now that the payload is safely in RAM, the WAL entry is updated with the ring buffer slot index. This two-phase write is what makes crash recovery deterministic:
+payload 安全进入 RAM 后，更新 WAL 条目，写入对应的环形缓冲槽位索引。这种两阶段写入让崩溃恢复是确定性的：
 
-On reboot you can scan the WAL, find PENDING entries, look up their slot index, and check whether the ring slot actually contains valid data:
-- **Slot index is unset** (device crashed between step 1 and step 4) → data is gone, entry marked `DROPPED`
-- **Slot is valid** → upload thread resumes from where it left off
+重启时扫描 WAL，找到 PENDING 条目，查看其槽位索引，并检查环形槽位中是否真的有有效数据：
+- **槽位索引未设置**（设备在第 1 步与第 4 步之间崩溃）→ 数据已丢失，条目标记为 `DROPPED`
+- **槽位有效** → 上传线程从中断处继续
 
-## Step 5 — Wake the Uploader
+## 第 5 步 — 唤醒上传线程
 
-A `sem_post()` on a POSIX semaphore (or an RTOS equivalent like FreeRTOS `xSemaphoreGive`) wakes the upload thread. The upload thread is otherwise sleeping to conserve CPU and therefore battery.
+在 POSIX 信号量上调用 `sem_post()`（或 RTOS 等价调用，例如 FreeRTOS 的 `xSemaphoreGive`）来唤醒上传线程。上传线程在其余时间处于睡眠状态以节省 CPU 和电量。
 
-It wakes, reads from the ring slot at `upload_ptr`, opens a TLS connection (or reuses an existing one), and streams the packet to Kafka:
-- **On ACK**: marks the WAL entry `SENT` and advances `upload_ptr`
-- **On failure**: retries with exponential backoff without touching `upload_ptr` — the slot stays occupied and the data stays safe
+它醒来后，从 `upload_ptr` 指向的环形槽位读出数据，打开一个 TLS 连接（或复用已有连接），将数据包推送到 Kafka：
+- **收到 ACK**：将 WAL 条目标记为 `SENT`，推进 `upload_ptr`
+- **失败**：按指数退避重试，不推进 `upload_ptr`——槽位保持占用，数据保持安全
 
-## Performance
+## 性能
 
-The whole handoff path — steps 1 through 5 — runs in under **100 microseconds** on a mid-range SoC for small payloads (IMU, GPS, tactile). Video frames take longer purely because of the memcpy/DMA time, but that's bounded by memory bandwidth, not the protocol overhead.
+整条交接路径——第 1 步到第 5 步——在中端 SoC 上对小 payload（IMU、GPS、触觉）耗时不到 **100 微秒**。视频帧耗时更长纯粹来自 memcpy/DMA 时间，但这个时间受内存带宽约束，而不是协议本身的开销。
 
 ## 延伸阅读
 

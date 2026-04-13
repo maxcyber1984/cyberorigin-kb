@@ -4,85 +4,85 @@ description: "How egocentric video is annotated: two-layer segmentation, action 
 icon: "tags"
 ---
 
-## Overview
+## 概览
 
-A single capture video may contain multiple valid collection tasks. The annotation pipeline segments the full video into independent tasks, then labels each segment with step-by-step action annotations following a predefined workflow.
+一段采集视频中可能包含多个合规的采集任务。标注流水线先将完整视频切分成独立任务，再对每个片段按既定步骤流程进行逐步动作标注。
 
-Segments with missing steps, wrong ordering, or inconsistent flow are marked invalid and excluded from downstream training.
+步骤缺失、顺序错误或与流程不一致的片段会被标记为无效，不参与下游训练。
 
-## Two-Layer Annotation
+## 两层标注
 
-### Layer 1: GV Annotation (Global Video)
+### 第 1 层：GV 标注（全视频）
 
-**Calibration segment tagging** — Every video starts with a calibration sequence (slow walk, hands out of frame, stationary pose). Annotators mark the calibration end frame. Everything after that frame is task footage.
+**标定段标注** — 每段视频开头都是标定序列（慢速走动、双手不入画、静止姿态）。标注员标出标定结束帧，该帧之后全部是任务数据。
 
-**Action segmentation** — Annotators mark natural action boundaries (the transition between one completed action and the next). Adjacent boundaries must be no more than 60 seconds apart. No language labels required at this layer — it's purely temporal segmentation.
+**动作切分** — 标注员标记自然的动作边界（一个动作完成与下一个动作开始之间的过渡）。相邻边界之间不超过 60 秒。本层不需要语言标签——仅做时间切分。
 
-### Layer 2: Short-Segment Annotation (Fine-Grained)
+### 第 2 层：Short-segment 标注（精细层）
 
-Each interaction with an object gets its own annotation clip, typically 2-5 seconds long. Gaps between clips are allowed.
+每次与物品的交互对应一个独立的标注片段，时长通常 2-5 秒。片段之间允许存在 gap。
 
-Every clip has two fields:
+每条片段包含两个字段：
 
-- **Skill**: a single verb capturing the core action (`hold`, `retrieve`, `pick`, `place`, `push`, `fold`, etc.)
-- **Description**: a structured sentence following the pattern `verb + object + manner + spatial relation`
+- **Skill**：描述核心动作的单个动词（`hold`、`retrieve`、`pick`、`place`、`push`、`fold` 等）
+- **Description**：遵循 `动词 + 宾语 + 方式 + 空间关系` 模式的结构化句子
 
-Example: *"Place the held pear into the plastic bag in the shopping bag."*
+示例：*"Place the held pear into the plastic bag in the shopping bag."*
 
-Spatial relations should describe both the object-to-object relationship (from place A to place B) and the precise location context (e.g., "into the shopping cart next to the instant noodles").
+空间关系既要描述物体之间的关系（从 A 位置到 B 位置），也要描述精确的位置上下文（例如"放进购物车里方便面旁边的位置"）。
 
-Verb and object vocabularies reference the [HD-EPIC dataset](https://hd-epic.github.io/).
+动词和宾语词表参考 [HD-EPIC dataset](https://hd-epic.github.io/)。
 
-## Task Library
+## 任务库
 
-16 household task types are currently defined, each with an explicit step-by-step workflow and start/end frame criteria:
+当前定义了 16 类家庭任务，每类都有明确的步骤流程和起止帧判定标准：
 
-| ID | Task | Key Constraint |
+| ID | 任务 | 关键约束 |
 |---|---|---|
-| 1 | Kitchen item sorting | Full unpack flow from bags to shelves and fridge |
-| 2 | Making tea | Includes cleanup: wash teaware in bathroom, return to table |
-| 3 | Making coffee | Same cleanup pattern as tea |
-| 4 | Organizing clothes | Min 5 items; start from messy pile, end with folded stack |
-| 5 | Organizing socks | Collect, fold, box, store, close cabinet |
-| 6 | Making bed | Replace pillowcase and sheets, fold neatly |
-| 7 | Kitchen cleaning | Stove, sink, countertop, cabinets, towel cleanup |
-| 8 | Fridge cleaning | Remove contents and shelves, wash, wipe interior, reassemble |
-| 9 | Living room tidying | Floor items, sofa cushions, coffee table |
-| 10 | Dishwashing | Collect, sink, wash, dry, store by category |
-| 11 | Sweeping and mopping | Enter with tools, sweep, dustpan, mop, store tools |
-| 12 | Toolbox organizing | Collect, assemble missing parts, box, store |
-| 13 | Making salad | Transfer vegetables, stir, dress, clean up |
-| 14 | Making snack bags | Open bag, scoop, pour, seal, store |
-| 15 | Folding clothes | Spread, fold left sleeve/side, right sleeve/side, bottom up |
-| 16 | Desk organizing | Pens, canisters, cups, boxes — each to designated spot |
+| 1 | 厨房物品分类 | 完整流程：从袋子到货架到冰箱 |
+| 2 | 沏茶 | 包含清理：去卫生间洗茶具，放回桌面 |
+| 3 | 冲咖啡 | 清理方式与沏茶相同 |
+| 4 | 整理衣物 | 至少 5 件；起始为杂乱一堆，结束为叠好一摞 |
+| 5 | 整理袜子 | 收集、折叠、装盒、收纳、关柜 |
+| 6 | 整理床铺 | 换枕套和床单，整齐折叠 |
+| 7 | 厨房清洁 | 灶台、水槽、台面、橱柜、抹布清理 |
+| 8 | 冰箱清洁 | 清空内容物与搁架，清洗，内壁擦拭，复位 |
+| 9 | 客厅收拾 | 地面物品、沙发靠垫、茶几 |
+| 10 | 清洗餐具 | 收集、入槽、清洗、沥干、分类归位 |
+| 11 | 扫地拖地 | 带工具入场、扫、收灰、拖、归位 |
+| 12 | 工具箱整理 | 收集、补齐缺件、装盒、收纳 |
+| 13 | 制作沙拉 | 转移蔬菜、搅拌、调味、清理 |
+| 14 | 零食分装 | 开袋、舀取、倾倒、封口、收纳 |
+| 15 | 折叠衣物 | 平铺、左袖/边、右袖/边、从下往上翻折 |
+| 16 | 桌面整理 | 笔、笔筒、杯子、盒子——各归指定位置 |
 
-Industrial tasks (factory floor) are being added: PC disassembly, tent setup, furniture assembly, bicycle assembly.
+工业任务（工厂场景）正在新增：电脑主机拆装、帐篷搭设、家具组装、自行车组装。
 
-## Quality Control
+## 质量控制
 
-QC runs on a platform called Bluebird Cloud, with two keyboard-driven workflows:
+QC 在名为"蓝鸟云"的平台上执行，两类操作均为键盘驱动：
 
-**Task segmentation (J key)**: First press selects scene + task name and marks start frame. Second press confirms end frame. Visual cues from the collector: thumbs-up = task start, two-finger gesture = task end.
+**任务切分（J 键）**：第一次按下选择场景 + 任务名，并标记起始帧。第二次按下确认结束帧。采集员视觉提示：大拇指手势 = 任务开始，二指手势 = 任务结束。
 
-**Defect tagging (L key)**: First press marks defect start. Second press selects the defect reason from a codebook.
+**不合格标注（L 键）**：第一次按下标记不合格起始。第二次按下从代码表中选择不合格原因。
 
-### Defect Codebook
+### 不合格代码表
 
-Household scenes (5 codes):
+家庭场景（5 类）：
 
-| Code | Trigger |
+| 代码 | 触发条件 |
 |---|---|
-| `image_flicker` | Persistent brightness oscillation during playback |
-| `operator_action_too_fast` | Unnaturally fast movements |
-| `operator_hand_static` | Hands frozen for > 5 seconds |
-| `illegal_use_props` | Props used outside protocol |
-| `other_unqualified` | Catch-all |
+| `image_flicker` | 播放时画面持续亮暗波动 |
+| `operator_action_too_fast` | 动作异常快 |
+| `operator_hand_static` | 手部静止超过 5 秒 |
+| `illegal_use_props` | 违规使用道具 |
+| `other_unqualified` | 其他不合格 |
 
-Supermarket scenes add 12 more codes: `target_out_of_frame`, `face_appeared`, `multiple_hands_appeared`, `part_of_hands_out_of_frame`, `hands_out_of_frame`, `push_shopping_cart` (hands leaving frame while pushing), `task_definition_and_items_not_related`, `image_blur`, `mirror_problem`, `phone_appeared`, `operator_unpleasant_behavior`, `chinese_appeared`.
+超市场景在此基础上增加 12 类：`target_out_of_frame`、`face_appeared`、`multiple_hands_appeared`、`part_of_hands_out_of_frame`、`hands_out_of_frame`、`push_shopping_cart`（推车时手出画面）、`task_definition_and_items_not_related`、`image_blur`、`mirror_problem`、`phone_appeared`、`operator_unpleasant_behavior`、`chinese_appeared`。
 
-## Output Format
+## 输出格式
 
-Annotations export as JSON with three top-level keys:
+标注结果导出为 JSON，包含三个顶层字段：
 
 ```json
 {
@@ -118,9 +118,9 @@ Annotations export as JSON with three top-level keys:
 }
 ```
 
-- `video_info` is auto-populated from the file metadata
-- `annotations` are ordered by step sequence — out-of-order entries invalidate the segment
-- `segmentations` define task boundaries with environment and task type labels
+- `video_info` 由文件元数据自动生成
+- `annotations` 按步骤顺序排列——顺序错误的条目会导致整段失效
+- `segmentations` 定义任务边界，并给出环境与任务类型标签
 
 ## 延伸阅读
 

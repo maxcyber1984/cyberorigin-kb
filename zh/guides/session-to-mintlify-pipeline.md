@@ -4,27 +4,27 @@ description: "Agent workflow for automatically compiling Claude conversations in
 icon: "arrows-rotate"
 ---
 
-## Why
+## 为什么要做这个
 
-Manually harvesting Claude conversations into published docs is the bottleneck. Conversation content is already structured thinking — the gap between "I explained this to Claude" and "it's on the docs site" should not require hours of editing.
+手工把 Claude 对话整理成发布文档是瓶颈。对话本身已经是结构化思考——"我把这件事讲给了 Claude"到"它出现在文档站上"之间，不应该还要耗费几个小时的手工编辑。
 
-The pipeline collapses that gap into three stages: **extract → transform → sync**.
+这条管道把这段差距压缩成三个阶段：**抽取 → 转换 → 同步**。
 
-## Architecture
+## 架构
 
 <img src="/assets/session_to_mintlify_agent_flow.svg" alt="Session to Mintlify agent flow diagram" />
 
-### Stage 1: Session Capture
+### 阶段 1：Session 捕获
 
-Claude has no official conversation export API yet. Three viable inputs:
+Claude 目前还没有官方的对话导出 API，有三种可行输入：
 
-- **Manual paste**: Copy conversation to `.txt` or `.json`. Fine for one-off imports
-- **API-native**: If you're using the Claude API directly, the `messages[]` array is already structured — feed it to the extractor as-is
-- **Browser extension**: Tools like "Save ChatGPT"-class extensions scrape claude.ai and emit JSON
+- **手动粘贴**：把对话复制到 `.txt` 或 `.json`，适合偶尔的一次性导入
+- **API 原生**：如果你直接用 Claude API，`messages[]` 数组本身就是结构化的——直接喂给抽取器即可
+- **浏览器插件**：类似"Save ChatGPT"这类插件可以抓取 claude.ai 并输出 JSON
 
-### Stage 2: Extractor Agent
+### 阶段 2：抽取 Agent
 
-A Claude API call with a system prompt that parses conversation into structured documents. The core prompt concept:
+一次带系统提示的 Claude API 调用，负责把对话解析成结构化文档。核心提示的思路：
 
 ```
 You are a technical documentation extractor. Given a conversation, identify:
@@ -46,11 +46,11 @@ Output strict JSON:
 }
 ```
 
-The JSON output then runs through an MDX Writer function that converts sections into `.mdx` files with appropriate Mintlify components (`<Steps>`, `<Card>`, `<Warning>`, etc.).
+拿到 JSON 输出后，再经过一个 MDX Writer 函数，把 sections 转换成 `.mdx` 文件，并使用合适的 Mintlify 组件（`<Steps>`、`<Card>`、`<Warning>` 等）。
 
-### Stage 3: GitHub Sync
+### 阶段 3：GitHub 同步
 
-The GitHub Contents API lets you create or update files with a single PUT request:
+GitHub Contents API 允许通过一次 PUT 请求创建或更新文件：
 
 ```python
 import base64, requests
@@ -70,32 +70,32 @@ def push_to_github(path, content, token, repo):
     }, headers={"Authorization": f"token {token}"})
 ```
 
-The PUT triggers the GitHub App webhook to Mintlify, which runs a build and deploys. No manual intervention required between "conversation ended" and "page is live."
+PUT 会触发 GitHub App 的 webhook 通知 Mintlify，后者执行构建并部署。从"对话结束"到"页面上线"之间不再需要人工介入。
 
-## Orchestrator Options
+## Orchestrator 选型
 
-Three directions with different complexity trade-offs:
+三种方向，复杂度权衡各不相同：
 
-| Approach | When to Use | Complexity |
+| 方案 | 适用场景 | 复杂度 |
 |---|---|---|
-| **Python script** | First-pass validation, manual trigger | Low |
-| **n8n** (self-hosted) | Visual flow, no-code triggers (cron, webhooks) | Medium |
-| **LangGraph** | Complex agent chains, retry logic, conditional routing ("is this blog or docs?") | High |
+| **Python 脚本** | 首次端到端验证、手动触发 | 低 |
+| **n8n**（自托管） | 可视化流程、无代码触发器（cron、webhook） | 中 |
+| **LangGraph** | 复杂 Agent 链、重试逻辑、条件分支（"这是 blog 还是 docs？"） | 高 |
 
-**Recommended path**: start with a Python script to validate the full flow end-to-end, then move to n8n only if you need scheduled runs or webhook triggers. Don't reach for LangGraph until the simpler options hit a wall — premature agent complexity is a common trap.
+**推荐路径**：先用 Python 脚本端到端跑通，再根据是否需要定时或 webhook 触发决定是否上 n8n。除非前两者撞墙，否则不要过早跳到 LangGraph——过早引入 Agent 复杂度是一个常见陷阱。
 
-## Open Design Questions
+## 待定设计问题
 
-- **Extraction granularity**: how to split a conversation that covers multiple topics? One page per subtopic vs. one page per conversation?
-- **Human review**: draft PR mode (commit to a branch, open a PR) vs. direct push to main? The former is safer but adds friction
-- **Version management**: when the same topic comes up in multiple conversations, merge or overwrite?
-- **Component selection**: what heuristic decides `<Steps>` vs. plain numbered list, or `<Warning>` vs. plain blockquote?
+- **抽取粒度**：一段涉及多个话题的对话如何切分？每个子话题一页 vs. 每段对话一页？
+- **人工复核**：草稿 PR 模式（提交到分支、开 PR）vs. 直接推送 main？前者更安全但增加摩擦
+- **版本管理**：相同话题在多段对话中反复出现时，合并还是覆盖？
+- **组件选择**：用什么启发规则决定 `<Steps>` vs. 普通有序列表，或 `<Warning>` vs. 普通引用？
 
-## Key Risks
+## 关键风险
 
-- Extractor classification accuracy directly determines navigation usability — a miscategorized page is worse than no page
-- Conversational signal-to-noise is lower than curated drafts, so human review cannot be skipped for public-facing content
-- GitHub API rate limits matter for batch syncs (5000 requests/hour for authenticated users, but the bottleneck is actually Mintlify build queue)
+- 抽取器的分类准确率直接决定导航可用性——一个归错类的页面比没有页面更糟
+- 对话的信噪比低于精修过的草稿，面向公开的内容不能跳过人工复核
+- GitHub API 限流需要关注批量同步场景（认证用户 5000 req/h，但真正的瓶颈其实是 Mintlify 的构建队列）
 
 ## 延伸阅读
 

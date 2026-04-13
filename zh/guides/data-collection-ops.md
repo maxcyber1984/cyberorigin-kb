@@ -4,31 +4,31 @@ description: "Running egocentric data collection at scale: calibration protocol,
 icon: "video"
 ---
 
-## Calibration Protocol
+## 标定流程
 
-Every recording starts with a mandatory calibration sequence. This is non-negotiable — it enables spatial reconstruction and camera intrinsic estimation downstream.
+每次录制都必须从一套强制性的标定序列开始。这一步不可妥协——它为下游的空间重建和相机内参估计提供基础。
 
-### Step 1: QR Code Registration
+### 第一步：二维码注册
 
-Place a QR code flat on the floor (paper must be smooth, flush with the surface). The collector looks straight ahead (eye-level, parallel to ground) for 2 seconds, then tilts to capture the full QR code in frame for 2 seconds. After that, the QR code is removed and must not appear again for the rest of the session.
+将二维码平放在地面上（纸张必须平整、与地面贴合）。采集员保持直视前方（与地面平行的眼平视角）2 秒，然后低头让二维码完整入画 2 秒。之后取走二维码，整个 Session 的其余时间都不得再次出现。
 
-### Step 2: Environment Scan
+### 第二步：环境扫描
 
-For the first 5-15 seconds after QR removal:
-- Collector faces forward, ground visible in > 30% of the frame
-- Hands stay out of frame
-- Walk a slow loop around the capture area (the path must cover all locations where tasks will be performed)
-- Maintain forward gaze throughout
+在二维码移除后的前 5-15 秒内：
+- 采集员面朝前方，地面在画面中占比 > 30%
+- 双手不入画
+- 沿采集区域慢速走一圈（路径必须覆盖后续所有执行任务的位置）
+- 全程保持正前方注视
 
-### Step 3: Calibration End Signal
+### 第三步：标定结束信号
 
-After the environment scan, hands enter the frame and hold still for 1 second. This marks the end of calibration. From this point, there are no constraints on hand visibility, ground visibility, gaze direction, or movement speed.
+环境扫描结束后，双手入画并静止保持 1 秒。这标记标定阶段结束。此后对手部是否出镜、地面是否可见、注视方向和移动速度都不再有约束。
 
-## Session Structure
+## Session 结构
 
-Standard collection day runs 5 sessions totaling 9 hours of active capture:
+标准采集日安排 5 个 Session，合计 9 小时有效采集：
 
-| Session | Time | Duration |
+| Session | 时间 | 时长 |
 |---|---|---|
 | 1 | 08:30 - 10:30 | 2h |
 | 2 | 11:00 - 12:00 | 1h |
@@ -36,68 +36,68 @@ Standard collection day runs 5 sessions totaling 9 hours of active capture:
 | 4 | 15:30 - 17:30 | 2h |
 | 5 | 18:00 - 20:00 | 2h |
 
-Some collection days run reduced schedules (Sessions 4-5 only, or Sessions 1-2 only) depending on setup and logistics.
+部分采集日会根据布置和调度情况执行缩减排期（仅 Session 4-5，或仅 Session 1-2）。
 
-## Task Requirements
+## 任务要求
 
-### Household Scenes
+### 家庭场景
 
-Each task has specific constraints beyond the general workflow:
+每项任务在通用流程之外还有独立约束：
 
-| Task | Requirements |
+| 任务 | 要求 |
 |---|---|
-| Prep vegetables | Washing and cutting only — no cooking |
-| Clear dining table | Full sequence: dirty dishes to kitchen sink, then wipe table clean. Hands must be visible during movement |
-| Wash dishes | Minimum 4 items (plates, cups, or bowls) |
-| Make bed | Pillowcase and pillow arrangement only — no blanket folding |
-| Fold clothes | Start: messy pile (any types). End: neatly folded stack. Min 5 items |
-| Organize bookshelf | Unit action: approach shelf, pick one book, place on desk. 3-5 units per task, must be continuous |
-| Stock fridge | Put a bag of purchased vegetables into the fridge |
-| Organize toys | Move scattered toys from desk into a box on the desk. Min 3-5 items |
-| Organize tools | Move scattered tools from desk into a box on the desk. Min 3-5 items |
+| 洗菜切菜 | 只做清洗和切配——不烹饪 |
+| 收拾餐桌 | 完整流程：将脏餐具送至厨房水槽，然后将桌面擦净。移动过程中必须能看到双手 |
+| 清洗餐具 | 至少 4 件（盘、杯或碗） |
+| 整理床铺 | 仅枕套和枕头摆放——不叠被子 |
+| 折叠衣物 | 起始：杂乱一堆（任意种类）。结束：整齐叠放。至少 5 件 |
+| 整理书架 | 单元动作：走近书架，拿一本书，放到桌上。每次任务 3-5 个单元，动作必须连贯 |
+| 整理冰箱 | 将一袋购买的蔬菜放入冰箱 |
+| 整理玩具 | 将桌面散落的玩具收进桌上的盒子，至少 3-5 件 |
+| 整理工具 | 将桌面散落的工具收进桌上的盒子，至少 3-5 件 |
 
-### Factory Scenes (Self-Built Facility)
+### 工厂场景（自建设施）
 
-Newer task categories running on dedicated floors:
+新增的任务类别，按专用楼层执行：
 
-**5th Floor**: Snack area (2 people), toy area (2 people), produce area (1 person)
+**五楼**：零食区（2 人）、玩具区（2 人）、生鲜区（1 人）
 
-**4th Floor**: PC disassembly/assembly, tent setup/teardown, furniture assembly (children's bed, chair), bicycle assembly/disassembly
+**四楼**：电脑主机拆装、帐篷拆搭、家具组装（儿童床、椅子）、自行车拆装
 
-## Metadata Tracking
+## 元数据记录
 
-Each person-session record captures:
+每条 person-session 记录包含：
 
-| Field | Description |
+| 字段 | 说明 |
 |---|---|
-| Task | Which task was performed |
-| `device_id` | Camera/device identifier |
-| Scene | Environment type (household, supermarket, factory) |
-| Address | Physical collection location |
-| Perspective | First-person or third-person |
-| Collector height | For camera height calibration |
-| Collection method | `human` or `teleoperation` |
+| 任务 | 执行的任务类型 |
+| `device_id` | 相机 / 设备标识 |
+| 场景 | 环境类型（家庭、超市、工厂） |
+| 地址 | 实际采集地点 |
+| 视角 | 第一人称或第三人称 |
+| 采集员身高 | 用于相机高度校正 |
+| 采集方式 | `human` 或 `teleoperation` |
 
-## Documentation System
+## 文档体系
 
-Four core documents maintain operational state:
+四份核心文档维护运营状态：
 
-1. **Attendance log** — Hourly worker and intern attendance by month
-2. **Task definition doc** — Canonical task list with diversity requirements and rotation schedule
-3. **Metadata doc** — Per-session records with all fields above, plus session-level incident logs
-4. **Procurement doc** — Props, materials, and supplies tracking
+1. **考勤表** — 按月记录钟点工和实习生的打卡情况
+2. **任务定义文档** — 规范化任务清单，含多样性要求与轮换排期
+3. **元数据文档** — 每个 Session 的记录（包含上述全部字段），以及 Session 级事件日志
+4. **采购文档** — 道具、耗材与物资追踪
 
-Data uploads flow through two channels on Feishu (Lark): a demo submission form and a video upload folder. NAS storage tracks cumulative volume.
+数据上传通过飞书（Lark）的两个通道：demo 提交表单和视频上传文件夹。NAS 存储负责累计体量追踪。
 
-## Collection Timeline
+## 采集时间线
 
-The operation has been running continuously since at least June 2025, rotating through multiple locations in Shenzhen:
+运营至少从 2025 年 6 月起连续运行，在深圳多地点之间轮换：
 
-- **Phase 1** (Jun-Jul 2025): Rented apartments — Longgang, Bao'an, Guangming districts
-- **Phase 2** (Aug-Sep 2025): Continued apartment rotation with expanded team
-- **Phase 3** (Nov 2025+): Self-built factory facility with dedicated floors for industrial tasks
+- **阶段 1**（2025 年 6-7 月）：租赁公寓——龙岗、宝安、光明区
+- **阶段 2**（2025 年 8-9 月）：继续公寓轮换，团队扩大
+- **阶段 3**（2025 年 11 月至今）：自建工厂设施，工业任务专用楼层
 
-The shift from rented apartments to a self-built facility signals scaling from proof-of-concept collection to production-grade data operations.
+从租赁公寓转向自建设施，标志着从概念验证阶段的采集走向生产级数据运营。
 
 ## 延伸阅读
 

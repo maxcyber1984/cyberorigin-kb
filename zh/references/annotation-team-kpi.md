@@ -4,72 +4,72 @@ description: "Dynamic performance quotas, quality gates, tiered bonuses, and dis
 icon: "chart-bar"
 ---
 
-## Design Philosophy
+## 设计理念
 
-Quality gates before quantity rewards. If your output doesn't pass the quality bar, your volume is irrelevant — no bonus, no matter how much you produce. This prevents the classic failure mode where annotators optimize for speed at the expense of accuracy.
+**质量门槛先于数量奖励。** 如果产出达不到质量线，产量再高也不算——没有奖金，无论做了多少。这是为了防止标注员为求速度牺牲准确率的经典失效模式。
 
-## Daily Quotas
+## 日产量基准
 
-Quotas are measured in **effective media duration** — the length of video/audio content processed, not hours spent at the desk.
+产量以**有效媒体时长**计量——处理的视频/音频内容长度，而不是在工位上待的小时数。
 
-| Role | Daily Quota |
+| 岗位 | 日产量基准 |
 |---|---|
-| QA (Quality Assurance) | 19 hours of media |
-| Annotator | 2 hours of media |
+| QA（质检） | 19 小时媒体 |
+| 标注员 | 2 小时媒体 |
 
-The ~10x gap between QA and Annotator quotas reflects the difference in work density: QA is rapid pass/fail review, while annotation is frame-level labeling at 2-5 second granularity.
+QA 与标注员之间约 10 倍的基准差距反映了工作密度差异：QA 是快速判定合格/不合格的复核，而标注是帧级别、2-5 秒粒度的打标签。
 
-## Dynamic Adjustment
+## 动态调整
 
-Quotas are not static. The annotation software iterates frequently and material complexity varies across projects, so KPI targets follow a dynamic adjustment mechanism:
+基准不是静态的。标注软件迭代频繁，素材复杂度在不同项目间差别很大，因此 KPI 目标采用动态调整机制：
 
-- **Authority**: Project leads can adjust targets based on measured test data
-- **Cadence**: Standards update every Monday, with possible mid-week revisions on Wednesday
-- **Enforcement**: New standards take effect immediately upon written notice
+- **调整权限**：项目负责人依据实测数据调整目标
+- **节奏**：每周一更新标准，周三可能进行周中微调
+- **执行**：新标准在书面通知下达后立即生效
 
-## Tiered Bonus System
+## 阶梯奖金
 
-Bonuses are calculated daily, based on how much output exceeds the daily quota:
+奖金按日结算，取决于超出日基准的幅度：
 
-| Excess | Daily Bonus |
+| 超出幅度 | 每日奖金 |
 |---|---|
-| 10% to < 20% | 5 RMB |
-| 20% to < 30% | 20 RMB |
-| 30% to < 50% | 50 RMB |
-| >= 50% | 80 RMB |
+| 10% 至 < 20% | 5 元 |
+| 20% 至 < 30% | 20 元 |
+| 30% 至 < 50% | 50 元 |
+| >= 50% | 80 元 |
 
-Rules: highest applicable tier only (no stacking). Quality must pass the threshold — if your accuracy falls below the passing line, the entire day's bonus is forfeited.
+规则：只取最高适用档（不叠加）。质量必须过线——若准确率低于合格线，当日奖金全部取消。
 
-## Disciplinary Framework
+## 纪律框架
 
-### Attendance and Output
+### 出勤与产出
 
-| Strike | Consequence |
+| 次数 | 处理方式 |
 |---|---|
-| 1st | Verbal or written warning |
-| 2nd | Public notice + 20 RMB penalty |
-| 3rd | Termination |
+| 第 1 次 | 口头或书面警告 |
+| 第 2 次 | 公开通报 + 20 元罚款 |
+| 第 3 次 | 辞退 |
 
-### Zero-Tolerance Red Lines
+### 零容忍红线
 
-The following issues trigger termination after 3 formal warnings with no improvement:
+以下问题在 3 次正式警告且无改进后触发辞退：
 
-- **Quality**: Accuracy below passing threshold, no improvement after coaching
-- **Attitude**: Negative behavior, poor work ethic, refusal to follow reasonable instructions
-- **Workspace**: Dirty workstation, littering, failure to meet 5S standards
-- **Waste disposal**: Leaving food waste or takeout containers in the office area overnight
+- **质量**：准确率低于合格线，辅导后仍无改进
+- **态度**：消极行为、缺乏职业素养、拒绝合理指令
+- **工位**：工位脏乱、乱扔废物、未达 5S 标准
+- **垃圾处理**：办公区域隔夜遗留餐余或外卖盒
 
-### Asset Liability
+### 资产责任
 
-Equipment damage due to personal negligence or intentional misuse requires full replacement cost reimbursement at purchase price.
+因个人疏忽或故意误用导致设备损坏，需按购置价全额赔偿。
 
-## Improvement Incentive
+## 改进激励
 
-A "Suggestions of Excellence" program encourages bottom-up process improvement:
+"金点子"计划鼓励自下而上的流程改进：
 
-- **Scope**: Workflow optimization, annotation/QC tool improvements, management efficiency
-- **Review chain**: Employee submits → supervisor screens → project manager approves → deployed
-- **Reward**: 10 RMB per adopted suggestion, with the possibility of additional bonuses for high-impact proposals
+- **范围**：工作流程优化、标注/质检工具改进、管理效率提升
+- **评审链**：员工提交 → 主管初筛 → 项目经理批准 → 落地
+- **奖励**：每条被采纳的建议奖励 10 元，高影响提案可能获得额外奖金
 
 ## 延伸阅读
 

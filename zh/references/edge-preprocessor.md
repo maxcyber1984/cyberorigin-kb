@@ -4,45 +4,45 @@ description: "How the edge preprocessor handles per-modality compression, timest
 icon: "microchip"
 ---
 
-The edge preprocessor is the most latency-sensitive piece of the entire pipeline — it runs on the wearable SoC (Qualcomm Snapdragon, NVIDIA Jetson Orin Nano, or Apple M-series depending on form factor) and has to keep up with all six streams in real time without draining the battery or overheating.
+边缘预处理器是整条管道中对延迟最敏感的组件——它跑在可穿戴设备的 SoC 上（根据形态不同，可能是 Qualcomm Snapdragon、NVIDIA Jetson Orin Nano 或 Apple M 系列），必须在不耗尽电池、不过热的前提下实时处理全部六路数据流。
 
-## Encode / Compress (Per Modality)
+## 按模态编码 / 压缩
 
-### Video
+### 视频
 
-Uses H.265 on the hardware codec (never software — you'll fry the CPU and battery). CRF 23 is a good starting point: perceptually lossless for most downstream CV tasks, roughly 60-70% size reduction over raw. Switch to AV1 if your SoC supports it (Snapdragon 8 Gen 2+ does) — 30% smaller than H.265 at equivalent quality.
+使用硬件编码器运行 H.265（绝不要走软件编码——会把 CPU 和电池烤干）。CRF 23 是不错的起点：对绝大多数下游 CV 任务而言感知无损，相对于原始数据体量降低约 60-70%。如果 SoC 支持 AV1（Snapdragon 8 Gen 2+ 支持），可切换过去——在同等画质下比 H.265 小 30%。
 
 ### IMU
 
-Applies a Kalman filter first (smooths gyro noise, doesn't add latency meaningfully), then delta-encodes the resulting values (each sample stores the diff from the previous), then lz4 compresses the batch. You'll get 5-10x compression over raw floats this way.
+先过一遍卡尔曼滤波（平滑陀螺噪声，对延迟影响可忽略），然后对结果做差分编码（每个样本只存与前一个的差值），再用 lz4 批压缩。这样相对于原始 float 可以压缩 5-10 倍。
 
-### Eye Gaze
+### 眼动
 
-Depth maps use RVL (Run-Length Variable-length) encoding — a standard for depth frames that exploits the spatial coherence of depth data far better than general-purpose codecs. The 2D gaze point (x, y, confidence) gets quantized to fixed-point integers; sub-pixel precision beyond ~0.1 degrees is noise anyway.
+深度图使用 RVL（Run-Length Variable-length）编码——这是深度帧的标准做法，对深度数据的空间相干性利用远胜于通用编码器。2D 注视点（x, y, confidence）量化为定点整数；超过 0.1 度的亚像素精度本来就是噪声。
 
-### Audio
+### 音频
 
-Goes through Opus at 16 kbps with 20ms frames, which is the sweet spot for speech and ambient sound. Voice Activity Detection (VAD) runs inline to tag silent frames, saving you from storing hours of silence.
+Opus 16 kbps、20 ms 帧长，是语音和环境声的甜点位。VAD（Voice Activity Detection）内联运行，给静音帧打标签，免除存储大量静音。
 
 ### GPS
 
-Coordinates get quantized to fixed-point with ~10cm precision (7 decimal places of latitude is overkill at 1 Hz), then geohashed for fast spatial indexing later. It's so low-bandwidth that compression barely matters, but consistent encoding does.
+坐标量化为定点，精度约 10 cm（1 Hz 下纬度 7 位小数已远超所需），随后做 geohash 以便后续空间索引。带宽太低，压缩几乎不重要，但编码一致性很重要。
 
-### Tactile
+### 触觉
 
-The most interesting modality. Full pressure arrays at 1 kHz are huge. Contact event encoding is much smarter: instead of storing the full NxM pressure grid every frame, you store only the cells that changed beyond a threshold (sparse representation) plus run-length encoding of the contact regions. For typical manipulation tasks, this gives 10-20x compression with no meaningful information loss.
+最有意思的模态。1 kHz 的完整压力阵列数据量极大。接触事件编码更聪明：不再每帧存储完整的 NxM 压力网格，而是只存储超过阈值变化的那些格子（稀疏表示），再加上接触区域的 Run-Length 编码。对典型的操作任务，可压缩 10-20 倍且没有有意义的信息损失。
 
-## The Shared Timestamp Engine
+## 共享时间戳引擎
 
-This is the most important component in the entire preprocessor. Every stream gets stamped with a monotonic hardware clock value derived from a PTP (Precision Time Protocol) hardware clock, synchronized to a GPS-derived time source when available.
+这是整个预处理器最重要的组件。每条流都被打上一个单调的硬件时钟值，时钟来自 PTP（Precision Time Protocol）硬件时钟，在可用时同步到 GPS 时间源。
 
-The key property: timestamps are from the **same clock domain** across all six modalities — not six separate clocks that drift relative to each other. Without this, your time alignment job in the cloud becomes a deconvolution problem instead of a simple join.
+关键属性：**所有六个模态的时间戳来自同一个时钟域**——不是六个各自漂移的独立时钟。没有这一点，云端的时间对齐就从一次简单的 join 变成反卷积问题。
 
-In practice on most wearable SoCs, you expose the PTP clock via `CLOCK_TAI` (not `CLOCK_REALTIME`, which jumps on NTP adjustments) and write the timestamp into each encoded packet's header before it hits the local buffer. Store it as a 64-bit nanosecond integer — don't use float, you'll lose precision.
+在多数可穿戴 SoC 上的实际做法是：通过 `CLOCK_TAI` 暴露 PTP 时钟（不要用 `CLOCK_REALTIME`，它会随 NTP 调整而跳变），并在每个编码数据包到达本地缓冲之前将时间戳写入包头。用 64 位纳秒整数存储——不要用 float，精度会丢。
 
-## Output Bus Packet Envelope
+## 输出总线数据包封装
 
-Every stream exits as a framed, tagged packet with a consistent envelope:
+每条流以带帧、带标签、封装一致的数据包输出：
 
 ```
 {
@@ -55,7 +55,7 @@ Every stream exits as a framed, tagged packet with a consistent envelope:
 }
 ```
 
-This common envelope is what lets the downstream Kafka producer and the time alignment job treat all six streams uniformly, regardless of how different the raw encodings are.
+这套统一封装，让下游 Kafka producer 和时间对齐任务能以相同方式处理所有六路流，无论原始编码差别多大。
 
 ## 延伸阅读
 
