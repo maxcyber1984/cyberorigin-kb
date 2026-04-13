@@ -1,0 +1,120 @@
+{
+  "$schema": "https://mintlify.com/docs.json",
+  "theme": "mint",
+  "name": "CyberOrigin Knowledge Base",
+  "logo": {
+    "dark": "/assets/cyber-logo-s.png",
+    "light": "/assets/logo-light.svg"
+  },
+  "favicon": "/assets/favicon.svg",
+  "colors": {
+    "primary": "#0D9373",
+    "light": "#07C983",
+    "dark": "#0D9373"
+  },
+  "navigation": {
+    "languages": [
+      {
+        "language": "zh",
+        "default": true,
+        "groups": [
+          {
+            "group": "公司介绍",
+            "pages": [
+              "zh/company/overview",
+              "zh/company/roadmap",
+              "zh/company/gantt"
+            ]
+          },
+          {
+            "group": "系统与架构",
+            "pages": [
+              "zh/guides/system-architecture",
+              "zh/guides/data-pipeline"
+            ]
+          },
+          {
+            "group": "数据采集",
+            "pages": [
+              "zh/guides/data-collection-ops",
+              "zh/references/egocentric-annotation",
+              "zh/references/laniao-cloud",
+              "zh/references/annotation-pipeline",
+              "zh/references/annotation-team-kpi"
+            ]
+          },
+          {
+            "group": "工程参考",
+            "pages": [
+              "zh/references/edge-preprocessor",
+              "zh/references/local-buffering",
+              "zh/references/output-bus-handoff"
+            ]
+          },
+          {
+            "group": "团队指南",
+            "pages": [
+              "zh/guides/onboarding",
+              "zh/guides/knowledge-management",
+              "zh/guides/session-to-mintlify-pipeline"
+            ]
+          }
+        ]
+      },
+      {
+        "language": "en",
+        "groups": [
+          {
+            "group": "Company",
+            "pages": [
+              "en/company/overview",
+              "en/company/roadmap",
+              "en/company/gantt"
+            ]
+          },
+          {
+            "group": "System & Architecture",
+            "pages": [
+              "en/guides/system-architecture",
+              "en/guides/data-pipeline"
+            ]
+          },
+          {
+            "group": "Data Collection",
+            "pages": [
+              "en/guides/data-collection-ops",
+              "en/references/egocentric-annotation",
+              "en/references/laniao-cloud",
+              "en/references/annotation-pipeline",
+              "en/references/annotation-team-kpi"
+            ]
+          },
+          {
+            "group": "Engineering Reference",
+            "pages": [
+              "en/references/edge-preprocessor",
+              "en/references/local-buffering",
+              "en/references/output-bus-handoff"
+            ]
+          },
+          {
+            "group": "Team Guides",
+            "pages": [
+              "en/guides/onboarding",
+              "en/guides/knowledge-management",
+              "en/guides/session-to-mintlify-pipeline"
+            ]
+          }
+        ]
+      }
+    ]
+  },
+  "footer": {
+    "socials": {
+      "github": "https://github.com/maxcyber1984/cyberorigin-kb"
+    }
+  },
+  "search": {
+    "prompt": "搜索文档或直接提问 / Search docs..."
+  }
+}
