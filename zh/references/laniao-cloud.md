@@ -63,8 +63,19 @@ icon: "cloud"
 | `chinese_appeared` | 画面中出现中文 |
 | `operator_unpleasant_behavior` | 操作人员不雅行为 |
 
-## 相关文档
+## 延伸阅读
 
-- [EgoCentric 数据标注](/docs/references/egocentric-annotation) — 标注方法论与输出格式
-- [标注团队 KPI](/docs/references/annotation-team-kpi) — 质检岗产出基准（19 小时/日）
-- [数据采集操作规范](/docs/guides/data-collection-ops) — 采集侧规范，与质检标准对应
+<CardGroup cols={2}>
+  <Card title="EgoCentric 数据标注" icon="tag" href="/zh/references/egocentric-annotation">
+    标注方法论与输出格式
+  </Card>
+  <Card title="标注团队 KPI" icon="chart-bar" href="/zh/references/annotation-team-kpi">
+    质检岗产出基准（19 小时/日）
+  </Card>
+  <Card title="数据采集操作规范" icon="video" href="/zh/guides/data-collection-ops">
+    采集侧规范，与质检标准对应
+  </Card>
+  <Card title="标注流水线" icon="tags" href="/zh/references/annotation-pipeline">
+    两层标注结构与 QC 缺陷代码表
+  </Card>
+</CardGroup>

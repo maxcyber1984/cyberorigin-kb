@@ -98,3 +98,20 @@ The operation has been running continuously since at least June 2025, rotating t
 - **Phase 3** (Nov 2025+): Self-built factory facility with dedicated floors for industrial tasks
 
 The shift from rented apartments to a self-built facility signals scaling from proof-of-concept collection to production-grade data operations.
+
+## Related Reading
+
+<CardGroup cols={2}>
+  <Card title="EgoCentric Annotation" icon="tag" href="/en/references/egocentric-annotation">
+    Annotation methodology after capture
+  </Card>
+  <Card title="Annotation Pipeline" icon="tags" href="/en/references/annotation-pipeline">
+    Two-layer annotation and QC defect codes
+  </Card>
+  <Card title="Bluebird Cloud" icon="cloud" href="/en/references/laniao-cloud">
+    Annotation and QC tool platform
+  </Card>
+  <Card title="System Architecture" icon="layer-group" href="/en/guides/system-architecture">
+    Where capture sits in the seven-layer stack
+  </Card>
+</CardGroup>

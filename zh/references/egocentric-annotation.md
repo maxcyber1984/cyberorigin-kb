@@ -97,8 +97,19 @@ icon: "tag"
 - `annotations`：每个有效片段内的动作标注，顺序必须与步骤流程一致
 - `segmentations`：每条完整数据片段的起始帧和结束帧
 
-## 相关文档
+## 延伸阅读
 
-- [数据采集操作规范](/docs/guides/data-collection-ops) — 校准流程和 Session 结构
-- [蓝鸟云质检工具](/docs/references/laniao-cloud) — 执行质检和标注的平台
-- [标注团队 KPI](/docs/references/annotation-team-kpi) — 产出基准和质量合格线
+<CardGroup cols={2}>
+  <Card title="数据采集操作规范" icon="video" href="/zh/guides/data-collection-ops">
+    校准流程和 Session 结构
+  </Card>
+  <Card title="蓝鸟云质检平台" icon="cloud" href="/zh/references/laniao-cloud">
+    执行质检和标注的平台
+  </Card>
+  <Card title="标注团队 KPI" icon="chart-bar" href="/zh/references/annotation-team-kpi">
+    产出基准和质量合格线
+  </Card>
+  <Card title="标注流水线" icon="tags" href="/zh/references/annotation-pipeline">
+    两层标注、动作分段、输出格式
+  </Card>
+</CardGroup>

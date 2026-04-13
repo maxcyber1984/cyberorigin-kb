@@ -23,3 +23,20 @@ icon: "layer-group"
 **L6 模型与验证** — 世界模型的评测指标设计（尤其是 EgoCentric 场景没有成熟 benchmark）；算法验证如何与真实数据闭环迭代。
 
 **L7 客户交付** — 数据集的格式标准、模型 API 的 latency/throughput SLA、以及客户侧验收的可解释性（如何让客户信任模型质量）。
+
+## 延伸阅读
+
+<CardGroup cols={2}>
+  <Card title="数据管道" icon="arrows-split-up-and-left" href="/zh/guides/data-pipeline">
+    从边缘采集到平台服务的端到端管道
+  </Card>
+  <Card title="边缘预处理器" icon="microchip" href="/zh/references/edge-preprocessor">
+    L2 层的多模态压缩与时间戳设计
+  </Card>
+  <Card title="公司概览" icon="building" href="/zh/company/overview">
+    技术架构在公司战略中的位置
+  </Card>
+  <Card title="数据采集操作" icon="video" href="/zh/guides/data-collection-ops">
+    L3 采集层的落地规范
+  </Card>
+</CardGroup>

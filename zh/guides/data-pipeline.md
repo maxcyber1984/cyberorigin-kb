@@ -8,9 +8,9 @@ icon: "arrows-split-up-and-left"
 
 Every sensor produces a different stream with its own rate, encoding, and precision. Video comes off a rolling shutter camera at 30-60 fps; IMU pushes at 200 Hz; eye gaze at 120 Hz; audio at 16-48 kHz; GPS at 1-10 Hz; and tactile at anywhere from 100 Hz to 1 kHz depending on the sensor array.
 
-The [edge preprocessor](/references/edge-preprocessor) handles per-modality compression (H.264/H.265 for video, delta encoding for IMU, u-law for audio), applies a hardware timestamp using a monotonic clock synchronized via PTP/NTP, and strips corrupted frames.
+The [edge preprocessor](/zh/references/edge-preprocessor) handles per-modality compression (H.264/H.265 for video, delta encoding for IMU, u-law for audio), applies a hardware timestamp using a monotonic clock synchronized via PTP/NTP, and strips corrupted frames.
 
-The [local buffer](/references/local-buffering) (a ring buffer backed by a write-ahead log on flash storage) absorbs bursts during connectivity loss so no data is dropped during handoffs.
+The [local buffer](/zh/references/local-buffering) (a ring buffer backed by a write-ahead log on flash storage) absorbs bursts during connectivity loss so no data is dropped during handoffs.
 
 ## Cloud Ingestion Layer
 
@@ -51,3 +51,20 @@ Four specialized stores, each matched to its data type:
 - **Encoding for tactile**: raw pressure maps vs. contact-event encoding
 - **Chunking policy for the data lake**: session-level vs. fixed-duration windows
 - **Stream processing location**: on-device (TFLite / ONNX on the SoC) or fully cloud-side
+
+## 延伸阅读
+
+<CardGroup cols={2}>
+  <Card title="系统架构总览" icon="layer-group" href="/zh/guides/system-architecture">
+    七层架构中数据管道所处的层级
+  </Card>
+  <Card title="边缘预处理器" icon="microchip" href="/zh/references/edge-preprocessor">
+    每个模态的压缩与时间戳细节
+  </Card>
+  <Card title="本地缓冲" icon="hard-drive" href="/zh/references/local-buffering">
+    环形缓冲 + WAL 保证零数据丢失
+  </Card>
+  <Card title="输出总线交接" icon="right-left" href="/zh/references/output-bus-handoff">
+    预处理器到本地缓冲的五步交接
+  </Card>
+</CardGroup>

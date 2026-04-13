@@ -121,3 +121,20 @@ Annotations export as JSON with three top-level keys:
 - `video_info` is auto-populated from the file metadata
 - `annotations` are ordered by step sequence — out-of-order entries invalidate the segment
 - `segmentations` define task boundaries with environment and task type labels
+
+## Related Reading
+
+<CardGroup cols={2}>
+  <Card title="EgoCentric Annotation" icon="tag" href="/en/references/egocentric-annotation">
+    Annotation methodology in depth
+  </Card>
+  <Card title="Bluebird Cloud" icon="cloud" href="/en/references/laniao-cloud">
+    Annotation and QC tool shortcuts and workflow
+  </Card>
+  <Card title="Annotation Team KPI" icon="chart-bar" href="/en/references/annotation-team-kpi">
+    Output baselines and bonus structure
+  </Card>
+  <Card title="Data Collection Ops" icon="video" href="/en/guides/data-collection-ops">
+    Upstream capture specs
+  </Card>
+</CardGroup>

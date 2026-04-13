@@ -151,3 +151,17 @@ git add . && git commit -m "docs: update knowledge base" && git push origin main
 
 **Claude 能读取 Vault 里的所有文件吗？**
 是的，通过 obsidian-mcp 连接后，Claude 可以读取和写入 Vault 的所有文件，遵循 CLAUDE.md 里定义的操作边界。
+
+## 延伸阅读
+
+<CardGroup cols={2}>
+  <Card title="新成员入职指南" icon="user-plus" href="/zh/guides/onboarding">
+    第一周的系统了解与工具接入
+  </Card>
+  <Card title="Session-to-Mintlify 管道" icon="arrows-rotate" href="/zh/guides/session-to-mintlify-pipeline">
+    对话自动编译为发布文档的流程
+  </Card>
+  <Card title="公司概览" icon="building" href="/zh/company/overview">
+    知识体系背后的组织脉络
+  </Card>
+</CardGroup>

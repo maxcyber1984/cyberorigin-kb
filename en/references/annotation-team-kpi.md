@@ -70,3 +70,17 @@ A "Suggestions of Excellence" program encourages bottom-up process improvement:
 - **Scope**: Workflow optimization, annotation/QC tool improvements, management efficiency
 - **Review chain**: Employee submits → supervisor screens → project manager approves → deployed
 - **Reward**: 10 RMB per adopted suggestion, with the possibility of additional bonuses for high-impact proposals
+
+## Related Reading
+
+<CardGroup cols={2}>
+  <Card title="Annotation Pipeline" icon="tags" href="/en/references/annotation-pipeline">
+    The annotation flow KPIs are measured against
+  </Card>
+  <Card title="Bluebird Cloud" icon="cloud" href="/en/references/laniao-cloud">
+    Tool platform behind output measurement
+  </Card>
+  <Card title="EgoCentric Annotation" icon="tag" href="/en/references/egocentric-annotation">
+    Quality bar reference
+  </Card>
+</CardGroup>

@@ -56,3 +56,20 @@ Every stream exits as a framed, tagged packet with a consistent envelope:
 ```
 
 This common envelope is what lets the downstream Kafka producer and the time alignment job treat all six streams uniformly, regardless of how different the raw encodings are.
+
+## Related Reading
+
+<CardGroup cols={2}>
+  <Card title="Local Buffering" icon="hard-drive" href="/en/references/local-buffering">
+    The ring buffer + WAL downstream of the preprocessor
+  </Card>
+  <Card title="Output Bus Handoff" icon="right-left" href="/en/references/output-bus-handoff">
+    Five-step handoff from preprocessor to local buffer
+  </Card>
+  <Card title="Data Pipeline" icon="arrows-split-up-and-left" href="/en/guides/data-pipeline">
+    End-to-end pipeline overview
+  </Card>
+  <Card title="System Architecture" icon="layer-group" href="/en/guides/system-architecture">
+    Where L2 sits in the seven-layer stack
+  </Card>
+</CardGroup>

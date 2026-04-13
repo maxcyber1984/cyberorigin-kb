@@ -49,3 +49,17 @@ pending → sent → acked
 ```
 
 At which point that slot in the ring buffer is free to be reused. On failure, the upload retries with exponential backoff without touching `upload_ptr` — the slot stays occupied and the data stays safe.
+
+## 延伸阅读
+
+<CardGroup cols={2}>
+  <Card title="输出总线交接" icon="right-left" href="/zh/references/output-bus-handoff">
+    预处理器到缓冲的五步交接
+  </Card>
+  <Card title="边缘预处理器" icon="microchip" href="/zh/references/edge-preprocessor">
+    上游的压缩与时间戳
+  </Card>
+  <Card title="数据管道" icon="arrows-split-up-and-left" href="/zh/guides/data-pipeline">
+    端到端管道架构
+  </Card>
+</CardGroup>

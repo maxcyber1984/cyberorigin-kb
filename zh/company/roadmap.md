@@ -70,3 +70,17 @@ icon: "map"
 - 数据采集从民宿转移至自建工厂（2025 Q4）
 - Aliyun OSS → TOS 视频迁移（2026 Q2）
 - Ray 平台基础架构搭建完成
+
+## 延伸阅读
+
+<CardGroup cols={2}>
+  <Card title="Q2 2026 甘特图" icon="chart-gantt" href="/zh/company/gantt">
+    本季度各项目时间线视图
+  </Card>
+  <Card title="公司概览" icon="building" href="/zh/company/overview">
+    我们是谁、做什么、核心技术判断
+  </Card>
+  <Card title="系统架构总览" icon="layer-group" href="/zh/guides/system-architecture">
+    七层技术架构
+  </Card>
+</CardGroup>

@@ -57,7 +57,7 @@ CyberOrigin 的技术体系按七层架构组织：
 | L6 | 数据基础设施 | Grace DB、Cloud Tracking、查询服务 |
 | L7 | 模型训练消费 | Policy Training、世界模型训练 |
 
-详细架构见 [系统架构总览](/docs/guides/system-architecture)。
+详细架构见 [系统架构总览](/zh/guides/system-architecture)。
 
 ---
 
@@ -67,4 +67,21 @@ CyberOrigin 的技术体系按七层架构组织：
 
 正在完成数据采集→标注→交付完整链路的工程化，同时验证 Policy Training 可行性，建立对外交付节奏。
 
-产品路线图见 [Roadmap](/docs/company/roadmap)。
+产品路线图见 [Roadmap](/zh/company/roadmap)。
+
+## 延伸阅读
+
+<CardGroup cols={2}>
+  <Card title="产品路线图" icon="map" href="/zh/company/roadmap">
+    当前阶段目标、里程碑与长期规划
+  </Card>
+  <Card title="系统架构总览" icon="layer-group" href="/zh/guides/system-architecture">
+    七层技术架构与数据流
+  </Card>
+  <Card title="Q2 2026 甘特图" icon="chart-gantt" href="/zh/company/gantt">
+    本季度项目时间线与里程碑
+  </Card>
+  <Card title="新成员入职指南" icon="user-plus" href="/zh/guides/onboarding">
+    第一周的系统了解与工具接入
+  </Card>
+</CardGroup>

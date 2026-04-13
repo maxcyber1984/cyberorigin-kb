@@ -55,3 +55,17 @@ It wakes, reads from the ring slot at `upload_ptr`, opens a TLS connection (or r
 ## Performance
 
 The whole handoff path — steps 1 through 5 — runs in under **100 microseconds** on a mid-range SoC for small payloads (IMU, GPS, tactile). Video frames take longer purely because of the memcpy/DMA time, but that's bounded by memory bandwidth, not the protocol overhead.
+
+## Related Reading
+
+<CardGroup cols={2}>
+  <Card title="Local Buffering" icon="hard-drive" href="/en/references/local-buffering">
+    Ring buffer and WAL design details
+  </Card>
+  <Card title="Edge Preprocessor" icon="microchip" href="/en/references/edge-preprocessor">
+    Upstream of the handoff: compression and timestamping
+  </Card>
+  <Card title="Data Pipeline" icon="arrows-split-up-and-left" href="/en/guides/data-pipeline">
+    End-to-end data pipeline
+  </Card>
+</CardGroup>

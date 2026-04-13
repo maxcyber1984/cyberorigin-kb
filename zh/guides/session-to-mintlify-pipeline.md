@@ -96,3 +96,14 @@ Three directions with different complexity trade-offs:
 - Extractor classification accuracy directly determines navigation usability — a miscategorized page is worse than no page
 - Conversational signal-to-noise is lower than curated drafts, so human review cannot be skipped for public-facing content
 - GitHub API rate limits matter for batch syncs (5000 requests/hour for authenticated users, but the bottleneck is actually Mintlify build queue)
+
+## 延伸阅读
+
+<CardGroup cols={2}>
+  <Card title="知识管理协作方式" icon="brain" href="/zh/guides/knowledge-management">
+    Obsidian + Claude + Mintlify 的整体协作
+  </Card>
+  <Card title="新成员入职指南" icon="user-plus" href="/zh/guides/onboarding">
+    团队知识体系的接入流程
+  </Card>
+</CardGroup>
