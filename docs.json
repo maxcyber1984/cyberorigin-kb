@@ -58,6 +58,14 @@
               "zh/guides/knowledge-management",
               "zh/guides/session-to-mintlify-pipeline"
             ]
+          },
+          {
+            "group": "团队协作方法",
+            "pages": [
+              "zh/guides/phased-rollout",
+              "zh/guides/low-friction-inbox",
+              "zh/guides/onboarding-feedback-loop"
+            ]
           }
         ]
       },
@@ -76,7 +84,8 @@
             "group": "System & Architecture",
             "pages": [
               "en/guides/system-architecture",
-              "en/guides/data-pipeline"
+              "en/guides/data-pipeline",
+              "en/guides/2026-04-12-cyberorigin-system-structure"
             ]
           },
           {
@@ -103,6 +112,14 @@
               "en/guides/onboarding",
               "en/guides/knowledge-management",
               "en/guides/session-to-mintlify-pipeline"
+            ]
+          },
+          {
+            "group": "Team Practices",
+            "pages": [
+              "en/guides/phased-rollout",
+              "en/guides/low-friction-inbox",
+              "en/guides/onboarding-feedback-loop"
             ]
           }
         ]
