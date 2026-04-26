@@ -64,7 +64,8 @@
             "pages": [
               "zh/guides/phased-rollout",
               "zh/guides/low-friction-inbox",
-              "zh/guides/onboarding-feedback-loop"
+              "zh/guides/onboarding-feedback-loop",
+              "zh/guides/feishu-obsidian-claude-workflow"
             ]
           }
         ]
@@ -119,7 +120,8 @@
             "pages": [
               "en/guides/phased-rollout",
               "en/guides/low-friction-inbox",
-              "en/guides/onboarding-feedback-loop"
+              "en/guides/onboarding-feedback-loop",
+              "en/guides/feishu-obsidian-claude-workflow"
             ]
           }
         ]

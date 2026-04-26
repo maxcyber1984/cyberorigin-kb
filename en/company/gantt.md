@@ -60,22 +60,22 @@ gantt
 
 ## Key Milestones
 
-| Date | Milestone | Owner | Priority |
-|---|---|---|---|
-| 2026-04-30 | BIT 16K data delivery complete | Shiqi | P0 |
-| 2026-04-30 | CI/CD dedicated machine online | chengpei | P0 |
-| 2026-04-30 | QC data auto-ingest | Shiqi | P1 |
-| 2026-04-30 | WebKB public launch | Max | P1 |
-| 2026-05-15 | Grace query response < 200ms | Shiqi | P1 |
-| 2026-05-15 | Annotation platform industrial | Shiqi | P1 |
-| 2026-05-31 | Cloud Tracking System online | Shiqi | P0 |
-| 2026-05-31 | Glove Mujoco integration complete | lizi | P1 |
-| 2026-05-31 | Engineering key hires | Max | P1 |
-| **2026-06-15** | **Data Infra Structure delivery (hard deadline)** | **Max** | **P0** |
-| 2026-06-15 | Ray MLOps full takeover | Max | P0 |
-| 2026-06-30 | Policy Training initial validation | Shiqi | P2 |
-| 2026-06-30 | MoCap phase-2 plan finalized | Yu Liang | P2 |
-| 2026-06-30 | Q2 retro & Q3 planning kickoff | Max | — |
+| Date           | Milestone                                         | Owner    | Priority |
+| -------------- | ------------------------------------------------- | -------- | -------- |
+| 2026-04-30     | BIT 16K data delivery complete                    | Shiqi    | P0       |
+| 2026-04-30     | CI/CD dedicated machine online                    | chengpei | P0       |
+| 2026-04-30     | QC data auto-ingest                               | Shiqi    | P1       |
+| 2026-04-30     | WebKB public launch                               | Max      | P1       |
+| 2026-05-15     | Grace query response < 200ms                      | Shiqi    | P1       |
+| 2026-05-15     | Annotation platform industrial                    | Shiqi    | P1       |
+| 2026-05-31     | Cloud Tracking System online                      | Shiqi    | P0       |
+| 2026-05-31     | Glove Mujoco integration complete                 | lizi     | P1       |
+| 2026-05-31     | Engineering key hires                             | Max      | P1       |
+| **2026-06-15** | **Data Infra Structure delivery (hard deadline)** | **Max**  | **P0**   |
+| 2026-06-15     | Ray MLOps full takeover                           | Max      | P0       |
+| 2026-06-30     | Policy Training initial validation                | Shiqi    | P2       |
+| 2026-06-30     | MoCap phase-2 plan finalized                      | Yu Liang | P2       |
+| 2026-06-30     | Q2 retro & Q3 planning kickoff                    | Max      | —        |
 
 ---
 

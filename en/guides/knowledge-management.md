@@ -26,7 +26,7 @@ Mintlify (auto-publishing)
 ## Vault Directory Structure
 
 ```
-CyberOrigin/
+cyberorigin/
 ├── 00-Company/          # Company identity layer (mission, strategy, team)
 ├── _Inbox/              # Scratch area (write here first, organize later)
 ├── 01-Product/          # Product roadmap, PRDs, competitive analysis
@@ -129,11 +129,11 @@ From Obsidian content to public knowledge base:
 
 1. Finish content in the appropriate Vault folder (Obsidian format)
 2. Reformat to Mintlify doc format (frontmatter + MDX syntax)
-3. Save under the right subfolder of `WebKB/docs/`
-4. Update the navigation config in `WebKB/mint.json`
+3. Save under the right subfolder of `webkb/docs/`
+4. Update the navigation config in `webkb/mint.json`
 5. Git commit & push → Mintlify auto-deploys
 
-A daily 7 AM automation scans `WebKB/drafts/`, compiles pending drafts, and pushes them. To trigger manually:
+A daily 7 AM automation scans `webkb/drafts/`, compiles pending drafts, and pushes them. To trigger manually:
 
 ```bash
 cd /path/to/Obsidian Vault/WebKB

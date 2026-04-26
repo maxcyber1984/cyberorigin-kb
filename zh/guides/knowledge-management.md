@@ -26,7 +26,7 @@ Mintlify（自动发布）
 ## Vault 目录结构
 
 ```
-CyberOrigin/
+cyberorigin/
 ├── 00-Company/          # 公司身份层（使命、战略、团队）
 ├── _Inbox/              # 临时暂存区（先写这里，再整理）
 ├── 01-Product/          # 产品路线图、PRD、竞品分析
@@ -128,11 +128,11 @@ Obsidian 内容到公开知识库的发布路径：
 
 1. 在 Vault 的对应目录完成内容（Obsidian 格式）
 2. 整理为 Mintlify 文档格式（frontmatter + MDX 语法）
-3. 存入 `WebKB/docs/` 对应子目录
-4. 更新 `WebKB/mint.json` 的 navigation 配置
+3. 存入 `webkb/docs/` 对应子目录
+4. 更新 `webkb/mint.json` 的 navigation 配置
 5. Git commit & push → Mintlify 自动部署
 
-每天早上 7 点有自动化任务扫描 `WebKB/drafts/` 目录，将待发布草稿编译并推送。如需手动触发，运行：
+每天早上 7 点有自动化任务扫描 `webkb/drafts/` 目录，将待发布草稿编译并推送。如需手动触发，运行：
 
 ```bash
 cd /path/to/Obsidian Vault/WebKB

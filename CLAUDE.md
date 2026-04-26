@@ -8,7 +8,7 @@
 # 目录结构
 
 ```
-WebKB/
+webkb/
 ├── drafts/               # 草稿区：自由写作，Obsidian 风格
 ├── docs/                 # 发布区：Mintlify 兼容格式（这是部署源）
 │   ├── guides/           # 教程/指南类
@@ -39,7 +39,7 @@ WebKB/
 3. 写入 docs/ 对应分类目录
 4. 更新 mint.json 的 navigation 配置
 5. **处理配套素材**：如果源素材目录中有同名或相关的 `.svg` / `.png` / `.jpg` 等图片文件：
-   - 复制到 `WebKB/assets/`（保留原文件名或规范化命名）
+   - 复制到 `webkb/assets/`（保留原文件名或规范化命名）
    - 在 docs 文章正文中用 `<img src="/assets/文件名" alt="..." />` 嵌入
    - SVG 优先放在文章的架构/流程图章节开头，提供视觉入口
 
