@@ -4,6 +4,10 @@ description: "Team management hub architecture: people only use Feishu, while Ob
 icon: "diagram-project"
 ---
 
+> From Feishu conversations to work decisions — it all lives within communication and doing, in every passing moment. Capture each fragment of each moment.
+>
+> — Voice note, 2026-04-26
+
 ## Starting Point
 
 The workflow dilemma of a mid-sized team (30+ people):
