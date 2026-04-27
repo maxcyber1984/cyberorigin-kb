@@ -150,7 +150,33 @@ Three downgrades during real-world rollout:
 5. **Critical judgments require human approval** — LLM submits candidates; never auto-promote long-term commitments
 6. **Don't rewrite historical snapshots** — preserve the facts as-of when restructuring
 7. **Three-tier path migration** — live wiki links follow / historical snapshots stay / don't touch other projects' CLAUDE
-8. **Reversal decisions skip the full ceremony** — "既-existing plan simplification" doesn't need a new Linear Project
+8. **Reversal decisions skip the full ceremony** — existing plan simplification doesn't need a new Linear Project
+
+## Field Test: From Hardware Discussion to Linear Issue
+
+A real 8-minute snapshot from 2026-04-27 noon — the full loop of "meeting in progress → AI real-time sync → auto-flowed into Linear Issues." The trial-run surfaced 3 truths about the product experience:
+
+### 1. "Slow" doesn't mean "stuck"
+
+> "The only problem is it'll just sit there — it's just slow."
+> "What does 'slow' even mean? You can't expect it to pop out instantly. The 'slow' is mostly inference and analysis."
+
+LLM "slowness" is reasoning time, not network or system lag. Surfacing "thinking, deciding, analyzing" explicitly to the user beats an empty spinner — the latter makes people assume the system has crashed.
+
+### 2. MCP replaces function calling
+
+> "Leader provides the MCP model-context interface."
+> "Before, it was function calling."
+
+The trio's Claude → Linear link fully switched to MCP (OAuth-based) in 2026 Q2, retiring per-call token wrangling. This is one of the foundational prerequisites that makes the workflow actually runnable.
+
+### 3. The real human-in-the-loop
+
+> "It should push to this person, who reviews it, then pushes back. Use AI-drafted project plans for the team to study."
+
+Humans aren't replaced by AI — they're **pushed to the decision points**. AI drafts, human reviews, feedback loops back, and a learnable project-plan library forms. This is the actual landing path for the article's opening thesis: "daily conversation IS the decision record."
+
+> Source: voice note, 2026-04-27 12:52
 
 ## Applicability
 
